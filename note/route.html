@@ -1,0 +1,42 @@
+在 components目录下编写组件 (单文件组件 模板 css JS)
+<template>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <h2>welcome to apple view</h2>
+  </div>
+</template>
+
+配置路由
+import Apple from '@/components/Apple'
+	{
+      path: '/apple',
+      name: 'Apple',
+      component: Apple
+    }
+	
+cnpm run dev
+页面访问 http://localhost:8080/#/apple
+
+mode:history 支持向前向后
+也支持 http://localhost:8080/apple
+
+<router-link :to="{path:'apple'}">apple</router-link>
+会自动转化<a href='/apple'></a>
+
+路由参数
+path: '/apple/:color',
+<button @click="getParam">获取路由参数</button>
+methods: {
+  getParam () {
+	console.log(this.$route.params)
+  }
+
+子路由
+path: '/apple',
+component: Apple
+children: [
+{
+path: "red",
+component: RedApple
+}
+]
