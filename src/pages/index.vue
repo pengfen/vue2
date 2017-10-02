@@ -4,19 +4,129 @@
 		    <div class="index-left-block">
 			    <h2>全部产品</h2>
 				
+				<template v-for="product in productList">
+				    <h3>{{ product.title }}</h3>
+					<ul>
+					    <li v-for="item in product.list">
+						    <a :href="item.url">{{ item.name }}</a>
+							<span v-if="item.hot" class="hot-tag">HOT</span>
+						</li>
+					</ul>
+					<div v-if="!product.last" class="hr"></div>
+				</template>
 			</div>
 			<div class="index-left-block lastest-news">
                 <h2>最新消息</h2>
 				
+				<ul>
+				    <li v-for="item in newsList">
+					    <a :href="item.url">{{ item.name }}</a>
+					</li>
+				</ul>
 			</div>
 		</div>
+		
+		<div class="index-right">
+			<div class="index-board-list">
+				<div class="index-board-item" v-for="(item, index) in boardList"
+				:class="[{'line-last' : index % 2 !== 0}, 'index-board-' + item.id]">
+					<div class="index-board-item-inner" >
+						<h2>{{ item.title }}</h2>
+						<p>{{ item.description }}</p>
+						<div class="index-board-button">
+						<router-link class="button" :to="{path: 'detail/' + item.toKey}">立即购买</router-link>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
     </div>
+	
 </template>
 
 <script>
 export default {
+    created: function() {
+	    this.$http.get('api/getNewsList')
+		.then((res) => {
+		    this.newsList = res.data
+		}, (err) => {
+		    console.log(err)
+		})
+	},
   data () {
     return {
+	    boardList: [
+			{
+			  title: '开放产品',
+			  description: '开放产品是一款开放产品',
+			  id: 'car',
+			  toKey: 'analysis',
+			  saleout: false
+			},
+			{
+			  title: '品牌营销',
+			  description: '品牌营销帮助你的产品更好地找到定位',
+			  id: 'earth',
+			  toKey: 'count',
+			  saleout: false
+			},
+			{
+			  title: '使命必达',
+			  description: '使命必达快速迭代永远保持最前端的速度',
+			  id: 'loud',
+			  toKey: 'forecast',
+			  saleout: true
+			},
+			{
+			  title: '勇攀高峰',
+			  description: '帮你勇闯高峰，到达事业的顶峰',
+			  id: 'hill',
+			  toKey: 'publish',
+			  saleout: false
+			}
+		],
+	    newsList: [
+		],
+
+	    productList: {
+		    pc: {
+			    title: "PC产品",
+				list: [
+				    {
+					    name: '数据统计',
+						url: 'http://test1.com'
+					},
+					{
+					    name: '数据分析',
+						url: 'http://test1.com',
+						hot: true,
+					},
+					{
+					    name: '数据统计',
+						url: 'http://test1.com'
+					}
+				]
+			},
+			app: {
+			    title: "APP应用",
+				last: true,
+				list: [
+				    {
+					    name: '数据统计',
+						url: 'http://test1.com'
+					},
+					{
+					    name: '数据统计',
+						url: 'http://test1.com'
+					},
+					{
+					    name: '数据统计',
+						url: 'http://test1.com'
+					}
+				]
+			},
+		}
     }
   },
 }
@@ -116,5 +226,9 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.hot-tag {
+  background: red;
+  color: #fff;
 }
 </style>

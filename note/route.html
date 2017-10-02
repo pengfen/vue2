@@ -1,4 +1,4 @@
-ÔÚ componentsÄ¿Â¼ÏÂ±àĞ´×é¼ş (µ¥ÎÄ¼ş×é¼ş Ä£°å css JS)
+åœ¨ componentsç›®å½•ä¸‹ç¼–å†™ç»„ä»¶ (å•æ–‡ä»¶ç»„ä»¶ æ¨¡æ¿ css JS)
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
@@ -6,7 +6,7 @@
   </div>
 </template>
 
-ÅäÖÃÂ·ÓÉ
+é…ç½®è·¯ç”±
 import Apple from '@/components/Apple'
 	{
       path: '/apple',
@@ -15,23 +15,23 @@ import Apple from '@/components/Apple'
     }
 	
 cnpm run dev
-Ò³Ãæ·ÃÎÊ http://localhost:8080/#/apple
+é¡µé¢è®¿é—® http://localhost:8080/#/apple
 
-mode:history Ö§³ÖÏòÇ°Ïòºó
-Ò²Ö§³Ö http://localhost:8080/apple
+mode:history æ”¯æŒå‘å‰å‘å
+ä¹Ÿæ”¯æŒ http://localhost:8080/apple
 
 <router-link :to="{path:'apple'}">apple</router-link>
-»á×Ô¶¯×ª»¯<a href='/apple'></a>
+ä¼šè‡ªåŠ¨è½¬åŒ–<a href='/apple'></a>
 
-Â·ÓÉ²ÎÊı
+è·¯ç”±å‚æ•°
 path: '/apple/:color',
-<button @click="getParam">»ñÈ¡Â·ÓÉ²ÎÊı</button>
+<button @click="getParam">è·å–è·¯ç”±å‚æ•°</button>
 methods: {
   getParam () {
 	console.log(this.$route.params)
   }
 
-×ÓÂ·ÓÉ
+å­è·¯ç”±
 path: '/apple',
 component: Apple
 children: [
@@ -40,3 +40,10 @@ path: "red",
 component: RedApple
 }
 ]
+
+å®æˆ˜
+<router-link class="button" :to="{path: 'detail/' + item.toKey}">ç«‹å³è´­ä¹°</router-link>
+toKey: 'analysis' ---> <a data-v-036f8287="" href="/detail/analysis" class="button">ç«‹å³è´­ä¹°</a>
+toKey: 'count'    ---> <a data-v-036f8287="" href="/detail/count" class="button">ç«‹å³è´­ä¹°</a>
+toKey: 'forecast' ---> <a data-v-036f8287="" href="/detail/forecast" class="button">ç«‹å³è´­ä¹°</a>
+toKey: 'publish'  ---> <a data-v-036f8287="" href="/detail/publish" class="button">ç«‹å³è´­ä¹°</a>

@@ -1,0 +1,69 @@
+cnpm install vue-resource
+
+main.js 入口文件中添加
+import VueResource from 'vue-resource'
+
+Vue.use(VueResource)
+
+页面模板中添加调用函数
+    created: function() {
+	    this.$http.get('getList')
+		.then(function(res) {
+		    console.log(res.data)
+		}, function(err) {
+		    console.log(error)
+		})
+	},
+	
+安装json服务端模拟数据
+cnpm install json-server --save
+
+build/dev-serve.js中添加
+// json-server相关配置
+var jsonServer = require('json-server')
+var apiServer = jsonServer.create();
+var apiRouter = jsonServer.router('db.json')
+var middleware = jsonServer.defaults();
+
+apiServer.use(middleware);
+apiServer.use(apiRouter);
+apiServer.listen(port + 1, function() {
+	console.log('JSON Server is running')
+})
+
+// 修改代理api (config/index.js)
+proxyTable: {
+	'/api/': 'http://localhost:8081/'
+},
+build/dev-server.js
+apiServer.use('/api', apiRouter);
+
+db.json 添加json数据(注意使用双引号)
+{
+    "getNewsList": [
+		{
+		    "name": "数据统计",
+		    "url": "http://starcraft.com"
+		},
+		{
+		    "name": "数据统计",
+		    "url": "http://starcraft.com"
+		}
+	]
+}
+
+页面测试 http://localhost:8080/api/getNewsList
+
+修改页面
+export default {
+    created: function() {
+	    this.$http.get('api/getNewsList')
+		.then((res) => {
+		    this.newsList = res.data
+		}, (err) => {
+		    console.log(err)
+		})
+	},
+}
+注意this的使用
+如果不用 => 则是 let th = this; function(res) {th.newsList = res.data}

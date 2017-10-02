@@ -1,4 +1,6 @@
-install.html  安装
-intro.html    介绍
-route.html    路由
-prog.html     流程
+install.html  瀹夎
+intro.html    浠嬬粛
+route.html    璺敱
+prog.html     娴佺▼
+load.html     鍔犺浇鏁版嵁
+ajax.html     寮傛鍔犺浇鏁版嵁

@@ -1,0 +1,12 @@
+{
+    "getNewsList": [
+		{
+		    "name": "测试数据",
+		    "url": "http://starcraft.com"
+		},
+		{
+		    "name": "数据测试",
+		    "url": "http://starcraft.com"
+		}
+	]
+}
