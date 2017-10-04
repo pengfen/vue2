@@ -8,12 +8,12 @@
         <div class="head-nav">
           <ul class="nav-list">
             <li> {{ username }}</li>
+            <li v-if="username!== ''" class="nav-pile">|</li>
+            <li v-if="username!== ''" @click="quit">退出</li>
+            <li v-if="username=== ''" @click="logClick">登录</li>
             <li class="nav-pile">|</li>
-            <li @click="quit">退出</li>
-            <li  @click="logClick">登录</li>
-            <li class="nav-pile">|</li>
-            <li @click="regClick">注册</li>
-            <li class="nav-pile">|</li>
+            <li v-if="username=== ''" @click="regClick">注册</li>
+            <li v-if="username=== ''" class="nav-pile">|</li>
             <li @click="aboutClick">关于</li>
           </ul>
         </div>  
@@ -27,11 +27,58 @@
     <div class="app-foot">
       <p>© 2016 fishenal MIT</p>
     </div>
+	<my-dialog :is-show="isShowLogDialog" @on-close="closeDialog('isShowLogDialog')">
+	    <log-form @has-log="onSuccessLog"></log-form>
+	</my-dialog>
+	<my-dialog :is-show="isShowRegDialog" @on-close="closeDialog('isShowRegDialog')">
+	    <reg-form></reg-form>
+	</my-dialog>
+		<my-dialog :is-show="isShowAboutDialog" @on-close="closeDialog('isShowAboutDialog')">
+	    <p>测试网站</p>
+	</my-dialog>
   </div>
 </template>
 
 <script>
+import Dialog from './dialog'
+import LogForm from './logForm'
+import RegForm from './regForm'
 export default {
+    components: {
+	    MyDialog: Dialog,
+		LogForm,
+		RegForm
+	},
+	data() {
+	    return {
+		    isShowLogDialog: false,
+			isShowRegDialog: false,
+			isShowAboutDialog: false,
+			username: ''
+		}
+	},
+	methods: {
+	    logClick() {
+		    this.isShowLogDialog = true
+		},
+		regClick() {
+		    this.isShowRegDialog = true
+		},
+	    aboutClick() {
+		    this.isShowAboutDialog = true
+		},
+		closeDialog(attr) {
+		    this[attr] = false
+		},
+		onSuccessLog (data) {
+		    console.log(data)
+		    this.closeDialog ('isShowLogDialog')
+		    this.username = data.username
+		},
+		quit() {
+		    //退出 (将username从cookie中去掉)
+		}
+	}
 }
 </script>
 

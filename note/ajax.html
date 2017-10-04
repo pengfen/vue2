@@ -67,3 +67,32 @@ export default {
 }
 注意this的使用
 如果不用 => 则是 let th = this; function(res) {th.newsList = res.data}
+
+json-server 仅支持get 不支持post 使用express
+// 使用express
+var apiServer = express()
+var bodyParser = require('body-parser')
+apiServer.use(bodyParser.urlencoded({extended: true}))
+apiServer.use(bodyParser.json())
+var apiRouter = express.Router()
+var fs = require('fs')
+apiRouter.get('/', function(req, res) {
+	res.json({ message: 'welcome to api' })
+})
+apiRouter.route('/:apiName')
+.all(function (req, res) {
+	fs.readFile('./db.json', 'utf8', function (err, data) {
+		if (err) throw err
+		var data = JSON.parse(data)
+		if (data[req.params.apiName]) {
+			res.json(data[req.params.apiName])
+		} else {
+			res.send('no such api name')
+		}
+	})
+})
+
+apiServer.use('/api', apiRouter);
+apiServer.listen(port + 1, function() {
+	console.log('JSON Server is running')
+})

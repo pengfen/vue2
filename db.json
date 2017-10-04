@@ -8,5 +8,9 @@
 		    "name": "数据测试",
 		    "url": "http://starcraft.com"
 		}
-	]
+	],
+	"login": {
+	    "username": "caopeng@163.com",
+		"password": "123456"
+	}
 }

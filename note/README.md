@@ -4,3 +4,7 @@ route.html    路由
 prog.html     流程
 load.html     加载数据
 ajax.html     异步加载数据
+self-com.html 添加自写组件
+login.html    登录组件
+detail.html   详情页
+select.html   选择组件
